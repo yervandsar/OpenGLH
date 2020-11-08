@@ -1,0 +1,26 @@
+
+attribute vec3 aVertexPosition;
+attribute vec4 aVertexColor;
+
+uniform mat4 uMVMatrix;
+uniform mat4 uPMatrix;
+
+varying vec4 vColor;
+
+uniform float f; // this is incremented every frame
+uniform float t; // this is time in milliseconds since epoch
+
+void main(void) {
+   mat4 rZ = mat4(cos(f/50.0),-sin(f/50.0),0,0,
+                              sin(f/50.0),cos(f/50.0),0,0,
+                              0,0,1,0,
+                              0,0,0,1);
+
+    gl_Position = vec4(aVertexPosition, 2.0);
+
+    if (aVertexColor.w !=  0.99) {
+        gl_Position = vec4(aVertexPosition, 2.0) * rZ;
+    }
+    
+    vColor = aVertexColor;
+}
