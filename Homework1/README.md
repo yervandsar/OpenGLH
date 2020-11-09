@@ -1,4 +1,4 @@
 # Homework 1
-
-## For video [click here](https://drive.google.com/file/d/1quox57jypJxgYmX3p5ZElqy9OmNp6kMz/view?usp=sharing).
+## In Example we use `swift ObjectOnSphere(radius: 1, sectors: 32, stacks: 32, cubeColor: .white)` geometry
+## For video [click here](https://drive.google.com/file/d/1h0VqOuP3_if5dWi_KGDaI_qnms9svEJc/view?usp=sharing).
 

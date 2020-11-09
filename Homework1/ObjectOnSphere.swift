@@ -2,20 +2,20 @@ import UIKit
 
 typealias Geometry = (vertices: [Float], indices: [Int], colors: [Float])
 
-struct CubeOnSphere {
+struct ObjectOnSphere {
     private (set) var sphereGeometry: Geometry?
-    private (set) var cubeGeometry: Geometry?
+    private (set) var objectGeometry: Geometry?
     private (set) var geometry: Geometry?
 
     init(radius: Float, sectors: Int, stacks: Int, cubeColor: UIColor) {
         self.sphereGeometry = sphere(radius: radius, sectorCount: sectors, stackCount: stacks)
-        self.cubeGeometry = cube(x: 0, y: radius, z: 0, size: radius / 4, color: CIColor(color: cubeColor))
-        guard let sphere = sphereGeometry, let cube = cubeGeometry else { return }
-        self.geometry = merge(data: sphere, with: cube)
+        self.objectGeometry = object(x: 0, y: radius, z: 0, size: radius / 5, color: CIColor(color: cubeColor))
+        guard let sphere = sphereGeometry, let object = objectGeometry else { return }
+        self.geometry = merge(data: sphere, with: object)
     }
 }
 
-private extension CubeOnSphere {
+private extension ObjectOnSphere {
 
     func sphere(radius: Float, sectorCount: Int, stackCount: Int) -> Geometry {
         var vertices = [Float]()
@@ -66,7 +66,7 @@ private extension CubeOnSphere {
         return (vertices, indices, colors)
     }
 
-    func cube(x: Float, y: Float, z: Float, size s: Float, color: CIColor) -> Geometry {
+    func object(x: Float, y: Float, z: Float, size s: Float, color: CIColor) -> Geometry {
         let vertices = [
             s + x, s + y, s + z,   -s + x, s + y, s + z,  -s + x,-s + y, s + z,
             -s + x, -s + y, s + z,   s + x, -s + y, s + z,  s + x,-s + y, -s + z,
@@ -82,12 +82,12 @@ private extension CubeOnSphere {
             -s + x, s + y, -s + z,   s + x, s + y, -s + z,  s + x,-s + y, -s + z
         ]
         let indices = [
-            0, 1, 2,   2, 3, 0,
-            4, 5, 6,   6, 7, 4,
-            8, 9,10,  10,11, 8,
-            12,13,14,  14,15,12,
-            16,17,18,  18,19,16,
-            20,21,22,  22,23,20
+            0, 1, 3, 3, 1, 2,
+            1, 5, 2, 2, 5, 6,
+            5, 4, 6, 6, 4, 7,
+            4, 0, 7, 7, 0, 3,
+            3, 2, 7, 7, 2, 6,
+            4, 5, 0, 0, 5, 1
         ]
 
         let colors: [Float] = (0..<vertices.count / 3)
